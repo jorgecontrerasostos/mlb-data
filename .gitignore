@@ -9,3 +9,5 @@ __pycache__/
 uv.lock
 dist/
 build/
+
+/playground/
