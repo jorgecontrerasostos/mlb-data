@@ -2,10 +2,27 @@ import dagster as dg
 import pandas as pd
 import statsapi
 
+SPORTS_ID = 1  # MLB sport ID in statsapi
 
-@dg.asset(description="MLB teams data from statsapi", key_prefix=["bronze"])
+@dg.asset(description="MLB teams data from statsapi", key_prefix=["bronze"], kinds={"duckdb"})
 def teams() -> pd.DataFrame:
-    teams = statsapi.get("teams", {"sportId": 1})
+    teams = statsapi.get("teams", {"sportId": SPORTS_ID})
     if not teams:
         raise ValueError("No teams data found from statsapi")
     return pd.DataFrame(teams["teams"])
+
+@dg.asset(description="MLB schedule data from statsapi", key_prefix=["bronze"], kinds={"duckdb"})
+def schedule() -> pd.DataFrame:
+    """
+    TODO: Check date. Without date param it extracts current date games
+
+    Raises:
+        ValueError: _description_
+
+    Returns:
+        pd.DataFrame: _description_
+    """
+    schedule = statsapi.get("schedule", {"sportId": SPORTS_ID})
+    if not schedule:
+        raise ValueError("No schedule data found from statsapi")
+    return pd.DataFrame(schedule["dates"])
