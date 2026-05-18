@@ -13,3 +13,9 @@ build/
 /playground/
 
 CLAUDE.md
+
+/db
+*.duckdb
+
+.ruff_cache/
+.tmp_**
