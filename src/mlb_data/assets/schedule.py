@@ -1,7 +1,7 @@
 import dagster as dg
 import pandas as pd
 import statsapi
-from src.constants import SPORTS_ID
+from constants import SPORTS_ID
 
 
 @dg.asset(
