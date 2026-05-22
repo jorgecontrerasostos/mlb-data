@@ -3,23 +3,32 @@ import pandas as pd
 import statsapi
 from constants import SPORTS_ID
 
+daily_partition = dg.DailyPartitionsDefinition(start_date="2026-03-25")
 
 @dg.asset(
     description="MLB schedule data from statsapi",
     key_prefix=["bronze"],
     kinds={"duckdb"},
+    partitions_def=daily_partition,
+    metadata={"partition_expr": "date"}
 )
-def schedule() -> pd.DataFrame:
+def schedule(context: dg.AssetExecutionContext) -> pd.DataFrame:
     """
-    TODO: Check date. Without date param it extracts current date games
+    Retrieves a schedule of games based on the provided date or current date if no date parameter is provided.
 
-    Raises:
-        ValueError: _description_
+    Args:
+        context (dg.AssetExecutionContext): The execution context for the asset.
 
     Returns:
-        pd.DataFrame: _description_
+        pd.DataFrame: A DataFrame containing the game schedule data.
+
+    Raises:
+        ValueError: If no schedule data is found from statsapi.
     """
-    schedule = statsapi.get("schedule", {"sportId": SPORTS_ID})
-    if not schedule:
+    date = context.partition_key
+    data = statsapi.get("schedule", {"sportId": SPORTS_ID, "date": date})
+    
+    if not data:
         raise ValueError("No schedule data found from statsapi")
-    return pd.DataFrame(schedule["dates"])
+    
+    return pd.DataFrame(data["dates"])
