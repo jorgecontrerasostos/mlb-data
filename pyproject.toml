@@ -5,12 +5,12 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12.12"
 dependencies = [
-    "black>=26.3.1",
     "dagster>=1.13.4",
     "dagster-dg-cli>=1.13.4",
     "dagster-duckdb>=0.29.4",
     "dagster-duckdb-pandas>=0.29.4",
     "dagster-webserver>=1.13.4",
+    "dbt-duckdb>=1.10.1",
     "mlb-statsapi>=1.9.0",
     "requests>=2.34.1",
     "ruff>=0.15.12",

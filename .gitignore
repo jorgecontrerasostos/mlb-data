@@ -19,3 +19,10 @@ CLAUDE.md
 
 .ruff_cache/
 .tmp_**
+
+.vscode/
+
+dbt_packages/
+dbt_internal_packages/
+logs/
+target/

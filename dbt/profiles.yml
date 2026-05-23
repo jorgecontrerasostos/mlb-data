@@ -1,0 +1,8 @@
+mlb_data_dbt:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: '../db/mlb.duckdb'
+      schema: main
+      threads: 4
