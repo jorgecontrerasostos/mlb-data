@@ -1,0 +1,9 @@
+sources:
+  - name: bronze
+    description: "Bronze layer containing raw data from the MLB API."
+    database: mlb
+    schema: bronze
+    tables:
+      - name: teams
+      - name: schedule
+      - name: standings
