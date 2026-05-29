@@ -1,6 +1,7 @@
 import dagster as dg
 import pandas as pd
 import statsapi
+import json
 
 
 @dg.asset(
@@ -12,4 +13,7 @@ def standings() -> pd.DataFrame:
     standings = statsapi.get("standings", {"leagueId": "103,104"})
     if not standings:
         raise ValueError("No standings data found from statsapi")
-    return pd.DataFrame(standings["records"])
+    standings_df = pd.DataFrame(standings["records"])
+    # Convert the teamRecords column to a valid JSON string so it can be stored in the database
+    standings_df["teamRecords"] = standings_df["teamRecords"].apply(json.dumps)
+    return standings_df
