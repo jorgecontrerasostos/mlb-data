@@ -1,6 +1,7 @@
 import dagster as dg
 import pandas as pd
 import statsapi
+import json
 from constants import SPORTS_ID
 
 daily_partition = dg.DailyPartitionsDefinition(start_date="2026-03-25")
@@ -31,4 +32,6 @@ def schedule(context: dg.AssetExecutionContext) -> pd.DataFrame:
     if not data:
         raise ValueError("No schedule data found from statsapi")
     
-    return pd.DataFrame(data["dates"])
+    schedule_df = pd.DataFrame(data["dates"])
+    schedule_df["games"] = schedule_df["games"].apply(json.dumps)
+    return schedule_df
