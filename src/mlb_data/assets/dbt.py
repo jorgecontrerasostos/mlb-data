@@ -1,8 +1,7 @@
 import dagster as dg
 from dagster import AssetExecutionContext
 from dagster_dbt import DbtCliResource, dbt_assets
-
-MANIFEST_PATH = "./dbt/target/manifest.json"
+from constants import MANIFEST_PATH
 
 
 @dbt_assets(manifest=MANIFEST_PATH)
