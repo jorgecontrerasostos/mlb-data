@@ -32,8 +32,8 @@ select
     venue_name,
     game_state,
     case
-        when home_team_score > away_team_score then home_team_name
-        when away_team_score > home_team_score then away_team_name
+        when home_team_score > away_team_score and game_status = 'F' then home_team_name
+        when away_team_score > home_team_score and game_status = 'F' then away_team_name
         else null
     end as winner,
     case
