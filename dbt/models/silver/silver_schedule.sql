@@ -32,14 +32,15 @@ select
     venue_name,
     game_state,
     case
-        when home_team_score > away_team_score then home_team_id
-        when away_team_score > home_team_score then away_team_id
+        when home_team_score > away_team_score then home_team_name
+        when away_team_score > home_team_score then away_team_name
         else null
     end as winner,
     case
         when game_status = 'F' then 'Final'
-        when game_status = 'P' then 'Pre-Game'
-        when game_status = 'I' then 'In Progress'
+        when game_status = 'DR' then 'Delayed Rain'
+        when game_status = 'DI' then 'Delayed Inclement Weather'
+        when game_status = 'FR' then 'Finished Early, Rain'
         else 'Other'
     end as game_status_desc
 from silver_schedule
