@@ -28,3 +28,5 @@ logs/
 target/
 
 graphify-out/
+
+.superpowers/
