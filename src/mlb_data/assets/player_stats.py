@@ -16,6 +16,20 @@ from constants import SPORTS_ID
     metadata={"partition_expr": "date"},
 )
 def player_stats(context: dg.AssetExecutionContext) -> pd.DataFrame:
+    """Retrieve and process daily MLB player statistics.
+
+    This function fetches player statistics for a given date from the MLB StatsAPI,
+    processes the data, and returns it as a pandas DataFrame. The data is partitioned by date.
+
+    Args:
+        context (dg.AssetExecutionContext): The Dagster execution context containing partition key.
+
+    Returns:
+        pd.DataFrame: A DataFrame containing player information along with their stats.
+
+    Raises:
+        ValueError: If player stats retrieval fails.
+    """
     date = context.partition_key
     player_stats_data = statsapi.get("sports_players", {"season": date.split("-")[0]})
 
