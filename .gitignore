@@ -33,3 +33,5 @@ graphify-out/
 docs/*
 
 .idea/
+
+.dagster_home/
